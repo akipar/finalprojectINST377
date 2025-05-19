@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const supabaseClient = require('@supabase/supabase-js')
@@ -9,8 +11,9 @@ const port = 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-const supabaseUrl = 'https://rckgnojuhzmijahbrejn.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJja2dub2p1aHptaWphaGJyZWpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2MDcwMjQsImV4cCI6MjA2MzE4MzAyNH0.nxg1UQZMWfwQ-OBKTrH2zd1vfnb0_nSBacsZ-KKmh8c';
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 
 
