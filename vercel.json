@@ -2,18 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "api/index.js",
+            "src": "supabaseFinal/index.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-      "src": "/page_views",
-      "dest": "/api/index.js"
-    },
-        {
             "src": "/(.*)",
-            "dest": "/public/$1"
+            "dest": "supabaseFinal/index.js"
         }
     ]
 }

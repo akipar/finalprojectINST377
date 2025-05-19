@@ -2,21 +2,24 @@ require('dotenv').config();
 
 const express = require('express');
 const { createServer } = require('@vercel/node');
+const path = require('path');
+
 
 const {createClient} = require('@supabase/supabase-js')
 const bodyParser = require('body-parser');
 
 
-const app=express()
-const port = 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const app=require('./api/index.js');
+const port = 3000;
 
 
 // app.post('/customer', async(req, res) => {
@@ -26,7 +29,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // });
 
 
-app.post ('/page_views', async (req, res) => {
+app.post ('/api/page_views', async (req, res) => {
     const { data, error } = await supabase
         .from('page_views')
         .select('id, count')
@@ -34,7 +37,7 @@ app.post ('/page_views', async (req, res) => {
         .single();
 
     if (error || !data) {
-        console.log('retrieval failed', error);
+        // console.log('retrieval failed', error);
         return res.status(500).json({error: 'Failed retrieval'})
     }
     const newCount = data.count +1;
@@ -51,6 +54,8 @@ app.post ('/page_views', async (req, res) => {
 
     res.json({count: newCount});
 })
+
+module.exports = app;
 
 // window.addEventListener('DOMCountLoaded', updatePageCount);
 
@@ -100,7 +105,3 @@ app.post ('/page_views', async (req, res) => {
 //     // console.log(request);
 // });
 
-
-app.listen(port, () => {
-    console.log('App is working on port ', port)
-});
