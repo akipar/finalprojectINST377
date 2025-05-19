@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Pokemon Card</title>
+        <link rel="stylesheet" href="pokemon.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js" defer></script>
+        <script src= "pokemon.js" defer></script>
+    </head>
+
+    <body >
+        <!-- Header -->
+        <header id="bar">
+            <h1>Pokemon TCG Search</h1>
+         </header>
+         <!-- Navigation -->
+          <nav id="main-nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="search.html">Help</a></li>
+            </ul>
+          </nav>
+
+         <!-- Main Content -->
+          <div class="main-container">
+            <h1>Search Pokemon cards by the artist or Pokemon!</h1>
+            <div class="content-area">
+                <!-- Page buttons
+                <a href="stocks.html"><button class="button-53" role="button">Stocks</button></a>
+                <a href="dogs.html"><button class="button-53" role="button">Dogs</button></a>
+                <br> -->
+            <div class="content-box">
+                <h1>Pokemon Card Search</h1>
+                <p>Enter Pokemon or Artist name!</p>
+                <input type="text" id="searchInput" placeholder ="Enter Pokemon or Artist name">
+                <button onclick="searchCards()">Search</button>
+                <div id="results"></div>
+            </div>
+
+        <br>
+        </div>
+
+    </body>
+</html>

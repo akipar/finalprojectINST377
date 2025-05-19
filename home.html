@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Pokemon Card</title>
+        <link rel="stylesheet" href="pokemon.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>        
+        <script src= "pokemon.js" defer></script>
+    </head>
+
+    <body onload = "Makeswiper();">
+        <!-- Header -->
+        <header id="bar">
+            <h1>Pokemon TCG Search</h1>
+         </header>
+         <!-- Navigation -->
+          <nav id="main-nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="search.html">Search Card</a></li>
+            </ul>
+          </nav>
+
+          <!-- Page counter -->
+          <span id="visitCount"></span>
+
+         <!-- Main Content -->
+          <div class="main-container">
+            <h1>Welcome to Pokemon Search Webpage!</h1>
+            <div class="content-area">
+                <!-- Random Slider -->
+                 <div class="swiper">
+                    <div class="swiper-wrapper" id="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                 </div>
+                 <!-- Info -->
+                  <div class="content-box" id="cardInfo">Click on the card to see details!</div>
+
+        <br>
+        </div>
+
+    </body>
+</html>
