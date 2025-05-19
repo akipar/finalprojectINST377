@@ -1,8 +1,9 @@
 require('dotenv').config();
 
 const express = require('express');
+const { createServer } = require('@vercel/node');
 
-const supabaseClient = require('@supabase/supabase-js')
+const {createClient} = require('@supabase/supabase-js')
 const bodyParser = require('body-parser');
 
 
@@ -14,7 +15,7 @@ app.use(express.static(__dirname + '/public'));
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 
