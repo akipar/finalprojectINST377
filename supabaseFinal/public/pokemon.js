@@ -2,13 +2,59 @@ const apiKey = '011257bd-2e5c-4dda-b8fe-1e7a4fa5e55b';
 
 window.addEventListener('DOMContentLoaded', async ()=> {
     try{
-        const res=await fetch('/Final', {method:'POST'});
+        const res=await fetch('/page_views', {method:'POST'});
         const data = await res.json();
         document.getElementById('visitCount').textContent = `You are visitor #${data.count}!`;
     } catch (err) {
         console.error('Visiter counter failed:', err);
     }
 });
+
+// async function loadCustomerdata() {
+//     await fetch('/customers')
+//     .then((result) => (result.json()))
+//     .then((resultJson)=> {
+//         const table = document.getElementById('table');
+//         table.setAttribute('id', 'customerInfo');
+
+//         const tableRow = document.createElement('tr');
+
+        
+//         const tableHeadingFirstName = document.createElement('th');
+//         tableHeadingFirstName.innerHTML = 'First Name';
+//         tableRow.appendChild(tableHeadingFirstName);
+
+//         const tableHeadingLastName = document.createElement('th');
+//         tableHeadingFirstName.innerHTML = 'Last Name';
+//         tableRow.appendChild(tableHeadingLastName);
+
+
+//         const tableHeadingState = document.createElement('th');
+//         tableHeadingFirstName.innerHTML = 'State';
+//         tableRow.appendChild(tableHeadingState);
+
+//         table.appendChild(tableRow);
+
+//         resultJson.forEach((customer) => {
+//             const customerTableRow = document.createElement('tr');
+//             const customerTableFirstName = document.createElement('td');
+//             const customerTableLastName = document.createElement('td');
+//             const customerTableState = document.createElement('td');
+
+//             customerTableFirstName.innerHTML = customer.customer_first_name;
+//             customerTableLastName.innerHTML = customer.customer_last_name;
+//             customerTableState.innerHTML = customer.customer_state;
+
+//             customerTableRow.appendChild(customerTableFirstName);
+//             customerTableRow.appendChild(customerTableLastName);
+//             customerTableRow.appendChild(customerTableState);
+
+//             table.appendChild(customerTableRow);
+
+//         });
+//         document.body.appendChild(table);
+//     });
+// }
 
 async function RandomCard() {
     const response = await axios.get('https://api.pokemontcg.io/v2/cards', {
@@ -105,7 +151,13 @@ function displayResults(cards) {
 
     const gliderContainer = document.createElement('div');
     gliderContainer.className = 'glider-contain';
-    gliderContainer.innerHTML = '<p>Click on the Artist name or Pokemon name to do a search on them again!</p><div class="glider"></div><button aria-label="Previous" class="glider-prev">«</button><button aria-label="Next" class="glider-next">»</button><div role="tablist" class="dots"></div>';
+    gliderContainer.innerHTML = `
+    <p>Click on the Artist name or Pokemon name to do a search on them again!</p>
+    <div class="glider"></div>
+    <button aria-label="Previous" class="glider-prev">«</button>
+    <button aria-label="Next" class="glider-next">»</button>
+    <div role="tablist" class="dots"></div>
+    `;
     container.appendChild(gliderContainer);
     
     const gliderInner = gliderContainer.querySelector('.glider');
@@ -140,3 +192,4 @@ function displayResults(cards) {
         });
     });
 }
+

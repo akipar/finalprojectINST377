@@ -24,79 +24,80 @@ const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 //     res.json({count: data});
 // });
 
-app.listen(port, () => console.log(`server running on http://localhost:${port}`));
 
-// async function updatePageCount() {
-//     const { data, error } = await supabase
-//         .from('page_views')
-//         .select('id, count')
-//         .limit(1)
-//         .single();
+app.post ('/page_views', async (req, res) => {
+    const { data, error } = await supabase
+        .from('page_views')
+        .select('id, count')
+        .limit(1)
+        .single();
 
-//     if (error || !data) {
-//         console.log('Fetch didnt work', error);
-//         return;
-//     }
-//     const newCount = data.count +1;
-//     const {error: updateError} = await supabase
-//         .from('page_views')
-//         .update({ count: newCount })
-//         .eq('id', data.id);
-//     if (updateError) {
-//         console.log('Update failed', updateError);
-//         return;
-//     }
+    if (error || !data) {
+        console.log('retrieval failed', error);
+        return res.status(500).json({error: 'Failed retrieval'})
+    }
+    const newCount = data.count +1;
 
-//     const counterBox = document.getElementById('pageCounter');
-//     if (counterBox) {
-//         counterBox.textContent = `You are visitor #${newCount}!`;
-//     }
-// }
+    const {error: updateError} = await supabase
+        .from('page_views')
+        .update({ count: newCount })
+        .eq('id', data.id);
+
+    if (updateError) {
+        console.log('Update failed', updateError);
+        return res.status(500).json({error: 'Failed update'})
+    }
+
+    res.json({count: newCount});
+})
 
 // window.addEventListener('DOMCountLoaded', updatePageCount);
 
+// app.get('/', (req, res) => {
+//     res.sendFile('home.html', {root: __dirname + '/public'});
+// });
 
-app.get('/customers', async (req, res) => {
-    console.log('attemptending to all customes');
+// app.get('/customers', async (req, res) => {
+//     console.log('attemptending to all customes');
 
-    const {data, error} = await supabase.from('customer').select();
+//     const {data, error} = await supabase.from('customer').select();
 
-    if(error) {
-        console.log(`Error: ${error}`)
-        res.statusCode = 400
-        res.send(error);
-    }
-    res.send(data)
-});
+//     if(error) {
+//         console.log(`Error: ${error}`)
+//         res.statusCode = 400
+//         res.send(error);
+//     }
+//     res.send(data)
+// });
 
-app.post('/customer', async(req, res) => {
-    console.log('Adding customer');
+// app.post('/customer', async(req, res) => {
+//     console.log('Adding customer');
 
-    console.log(req.body);
+//     console.log(req.body);
 
-    const { firstName, lastName, state} = req.body;
+//     const { firstName, lastName, state} = req.body;
 
-    // const firstName= req.body.firstName;
-    // const lastName = req.body.lastName;
-    // const state = req.body.state;
+//     // const firstName= req.body.firstName;
+//     // const lastName = req.body.lastName;
+//     // const state = req.body.state;
 
-    const {data, error} = await supabase
-        .from('customer')
-        .insert({ 
-            customer_firstname: firstName, 
-            customer_lastname: lastName, 
-            customer_state: state
-        })
-        .select();
+//     const {data, error} = await supabase
+//         .from('customer')
+//         .insert({ 
+//             customer_firstname: firstName, 
+//             customer_lastname: lastName, 
+//             customer_state: state
+//         })
+//         .select();
 
-    if(error) {
-        console.log(`Error: ${error}`)
-        res.statusCode = 500
-        res.send(error);
-    }
-    res.send(data);
-    // console.log(request);
-});
+//     if(error) {
+//         console.log(`Error: ${error}`)
+//         res.statusCode = 500
+//         res.send(error);
+//     }
+//     res.send(data);
+//     // console.log(request);
+// });
 
 
 app.listen(port, () => {
