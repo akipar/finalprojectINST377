@@ -1,19 +1,25 @@
 const express = require('express');
-const { createClient } = require('@supabase/supabase-js')
+
+const supabaseClient = require('@supabase/supabase-js')
+const bodyParser = require('body-parser');
+
+
 const app=express()
 const port = 3000;
 
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 const supabaseUrl = 'https://rckgnojuhzmijahbrejn.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJja2dub2p1aHptaWphaGJyZWpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2MDcwMjQsImV4cCI6MjA2MzE4MzAyNH0.nxg1UQZMWfwQ-OBKTrH2zd1vfnb0_nSBacsZ-KKmh8c';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 
-app.use(express.static(__dirname + '/public'));
 
-app.post('/Final', async(req, res) => {
-    const {data, error} = await supabase.rpc('increment_visit');
-    if (error) return res.status(500).json({error});
-    res.json({count: data});
-});
+
+// app.post('/customer', async(req, res) => {
+//     const {data, error} = await supabase.rpc('increment_visit');
+//     if (error) return res.status(500).json({error});
+//     res.json({count: data});
+// });
 
 app.listen(port, () => console.log(`server running on http://localhost:${port}`));
 
@@ -47,11 +53,49 @@ app.listen(port, () => console.log(`server running on http://localhost:${port}`)
 // window.addEventListener('DOMCountLoaded', updatePageCount);
 
 
-// app.get('/Final', (req, res) => {
-//     console.log('attemptending to get num')
-// })
+app.get('/customers', async (req, res) => {
+    console.log('attemptending to all customes');
+
+    const {data, error} = await supabase.from('customer').select();
+
+    if(error) {
+        console.log(`Error: ${error}`)
+        res.statusCode = 400
+        res.send(error);
+    }
+    res.send(data)
+});
+
+app.post('/customer', async(req, res) => {
+    console.log('Adding customer');
+
+    console.log(req.body);
+
+    const { firstName, lastName, state} = req.body;
+
+    // const firstName= req.body.firstName;
+    // const lastName = req.body.lastName;
+    // const state = req.body.state;
+
+    const {data, error} = await supabase
+        .from('customer')
+        .insert({ 
+            customer_firstname: firstName, 
+            customer_lastname: lastName, 
+            customer_state: state
+        })
+        .select();
+
+    if(error) {
+        console.log(`Error: ${error}`)
+        res.statusCode = 500
+        res.send(error);
+    }
+    res.send(data);
+    // console.log(request);
+});
 
 
 app.listen(port, () => {
-    console.log('App is working' +port)
+    console.log('App is working on port ', port)
 });
