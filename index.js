@@ -7,7 +7,9 @@ const {createClient} = require('@supabase/supabase-js')
 const bodyParser = require('body-parser');
 
 const app=express();
-const port = process.env.PORT || 3000;
+const port = 3000;
+
+
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
@@ -17,6 +19,11 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+app.get("/", (req, res) => res.send("Express on vercel"));
+
+app.listen(3000, () => console.log("Server ready on port 3000."));
+
+module.exports = app;
 
 app.post ('/api/page_views', async (req, res) => {
     const { data, error } = await supabase
@@ -46,7 +53,7 @@ app.post ('/api/page_views', async (req, res) => {
 
 
 
-module.exports = app;
+
 
 // window.addEventListener('DOMCountLoaded', updatePageCount);
 
