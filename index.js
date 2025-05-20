@@ -20,8 +20,9 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-app.get("/", (req, res) => res.send("Express on vercel"));
-
+app.get("/", (req, res) => {
+    res.sendFile('/public/home.html', {root:__dirname});
+} );
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
 
