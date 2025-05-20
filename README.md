@@ -3,7 +3,7 @@
 # Title: Pokemon TCG Artist Search
 
 # Description
-This project loads the information from Pokemon TCG API to search and 
+This project loads the information from Pokemon TCG API to search.
 
 # Target Browser
 This webpage is designed to be used on window browser on any computer.
