@@ -23,9 +23,8 @@ app.get("/", (req, res) => res.send("Express on vercel"));
 
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
-module.exports = app;
 
-app.post ('/api/page_views', async (req, res) => {
+app.post ('/page_views', async (req, res) => {
     const { data, error } = await supabase
         .from('page_views')
         .select('id, count')
@@ -52,7 +51,7 @@ app.post ('/api/page_views', async (req, res) => {
 });
 
 
-
+module.exports = app;
 
 
 // window.addEventListener('DOMCountLoaded', updatePageCount);
