@@ -9,6 +9,7 @@
   "author": "Aki",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "@supabase/supabase-js": "^2.49.4",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
